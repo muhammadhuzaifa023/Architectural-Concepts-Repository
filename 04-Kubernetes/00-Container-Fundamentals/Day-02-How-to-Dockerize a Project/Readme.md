@@ -56,6 +56,9 @@ RUN npm install --omit=dev
 CMD ["node", "src/index.js"]
 EXPOSE 3000
 ```
+<br>
+
+![Docker Image](Images/Docker%20Image9.png)
 
 > Note: The video uses `node:18-alpine` and `yarn install --production`. Node 18 reached end of life in April 2025 and the sample repo has since moved from yarn to npm, so the Dockerfile above uses a supported Node LTS image and `npm`. The rest of the steps are the same as in the video.
 
