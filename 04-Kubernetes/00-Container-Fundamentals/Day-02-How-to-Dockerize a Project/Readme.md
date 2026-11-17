@@ -24,6 +24,7 @@ https://www.docker.com/products/docker-desktop/
 ```
 git clone https://github.com/docker/getting-started-app.git
 ```
+![Docker Image](Images/Docker%20Image4.png)
 
 - cd into the directory
 ```
