@@ -44,6 +44,10 @@ touch Dockerfile
 
 ![Docker Image](Images/Docker%20Image7.png)
 - Using the text editor of your choice, paste the below content (each instruction is explained in the video)
+- Here in dockerfile we used the term FROM node so node is the image which provide by the DockerHub
+![Docker Image](Images/Docker%20Image8.png)
+<br>
+
 ```dockerfile
 FROM node:22-alpine
 WORKDIR /app
