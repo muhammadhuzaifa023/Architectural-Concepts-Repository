@@ -60,13 +60,13 @@ EXPOSE 3000
 
 ![Docker Image](Images/Docker%20Image9.png)
 
-Detailed Explanation of Dockerfile Instructions
+🔍 Detailed Explanation of Dockerfile Instructions
 
 1. FROM node:22-alpine
 
 Purpose: Selects the Base Image
 
-FROM defines the base image on which our Docker image will be built.
+The FROM instruction defines the base image on which our Docker image will be built.
 
 node:22-alpine means we are using Node.js version 22.
 
@@ -78,25 +78,25 @@ Why do we use it?
 
 Instead of installing Node.js and configuring the environment ourselves, Docker provides a ready-made Node.js environment through this base image.
 
-Remember: FROM is the starting point of every Dockerfile (except scratch-based images).
+💡 Remember: FROM is the starting point of every Dockerfile (except scratch-based images).
 
 2. WORKDIR /app
 
 Purpose: Sets the Working Directory
 
-WORKDIR creates or selects a directory inside the container.
+The WORKDIR instruction creates or selects a directory inside the container.
 
 /app is the directory where our application will reside.
 
-All subsequent relative paths will be executed from this directory.
+All subsequent relative paths will use this directory as their working location.
+
+If the directory does not exist, Docker creates it automatically.
 
 Why do we use it?
 
 It keeps our application files organized in a dedicated directory instead of placing everything in the container's root directory.
 
-Example:
-
-After executing this instruction, commands such as COPY, RUN, and CMD will use /app as their working directory when relative paths are provided.
+Example: After executing this instruction, commands such as COPY, RUN, and CMD will use /app as their working directory when relative paths are provided.
 
 3. COPY . .
 
@@ -106,13 +106,19 @@ The COPY instruction transfers files and directories from the build context (usu
 
 Understanding the two dots:
 
-First . = Current directory on the host machine (build context).
+Syntax
 
-Second . = Current working directory inside the container (/app).
+Meaning
+
+First .
+
+Current directory on the host machine (build context)
+
+Second .
+
+Current working directory inside the container (/app)
 
 Example:
-
-If your project contains:
 
 my-node-app/
 ├── src/
@@ -127,13 +133,13 @@ Why do we use it?
 
 The application source code and configuration files need to be available inside the container so that Node.js can execute the application.
 
-Important: Files excluded through .dockerignore will not be copied into the build context.
+⚠️ Important: Files excluded through .dockerignore will not be included in the build context.
 
 4. RUN npm install --omit=dev
 
 Purpose: Installs Application Dependencies During Image Build
 
-RUN executes a command while building the Docker image.
+The RUN instruction executes a command while building the Docker image.
 
 npm install installs the dependencies defined in package.json.
 
@@ -143,9 +149,17 @@ Understanding npm dependencies:
 
 In a Node.js project, dependencies are generally divided into two categories:
 
-dependencies: Packages required to run the application in production.
+Dependency Type
 
-devDependencies: Packages required mainly during development, testing, and building.
+Purpose
+
+dependencies
+
+Packages required to run the application in production
+
+devDependencies
+
+Packages required mainly during development, testing, and building
 
 Example:
 
@@ -166,45 +180,47 @@ Nodemon will not be installed.
 
 Why do we use it?
 
-Production containers should avoid unnecessary development packages. This helps reduce the installed dependencies and can make the resulting image smaller.
+Production containers should avoid unnecessary development packages. This helps reduce installed dependencies and can make the resulting image smaller.
 
-Remember: RUN executes during image building, not every time the container starts.
+💡 Remember: RUN executes during image building, not every time the container starts.
 
 5. CMD ["node", "src/index.js"]
 
 Purpose: Defines the Default Application Startup Command
 
-CMD specifies the default command that executes when a container starts.
+The CMD instruction specifies the default command that executes when a container starts.
+
+Let's understand each part:
 
 node invokes the Node.js runtime.
 
 src/index.js is the application entry point.
 
+The JSON array represents the exec form of CMD.
+
 Understanding the command:
 
 CMD ["node", "src/index.js"]
 
-This is called the JSON or exec form of CMD.
-
-It tells Docker to execute:
+This tells Docker to execute the following command when the container starts:
 
 node src/index.js
-
-when the container starts, unless a different command is supplied at runtime.
 
 Why do we use it?
 
 After creating a container from our image, Docker needs to know which process should run. Here, it starts our Node.js application.
 
-Remember: CMD executes when the container starts, not when the Docker image is built.
+💡 Remember: CMD executes when the container starts, not when the Docker image is built.
 
 6. EXPOSE 3000
 
 Purpose: Documents the Application's Listening Port
 
-EXPOSE indicates that the application inside the container is expected to listen on port 3000.
+The EXPOSE instruction indicates that the application inside the container is expected to listen on port 3000.
 
-It acts as documentation about the network port used by the application.
+It documents the network port used by the application.
+
+It helps developers understand which port the container uses.
 
 It does not automatically publish the port to the host machine.
 
@@ -214,40 +230,75 @@ We need to publish the container port using the -p option:
 
 docker run -d -p 3000:3000 my-node-app
 
-Understanding port mapping:
+Understanding Port Mapping:
 
-Host Machine Port : Container Port
-       3000       :       3000
+Host Machine
+
+Container
+
+Port 3000
+
+Port 3000
 
 Now the application can be accessed through:
 
 http://localhost:3000
 
-Remember: EXPOSE documents the port; -p publishes the port.
+💡 Remember: EXPOSE documents the port; -p publishes the port.
 
-Complete Dockerfile Execution Flow
+⚙️ Complete Dockerfile Execution Flow
 
-The Dockerfile follows this sequence:
+The following sequence explains how Docker processes the instructions:
 
-FROM – Selects the Node.js base image.
-
-WORKDIR – Creates/selects the application working directory.
-
-COPY – Copies application files into the image.
-
-RUN – Installs production dependencies.
-
-CMD – Defines the application startup command.
-
-EXPOSE – Documents the application's listening port.
-
-Important Docker Concepts to Remember
+Step
 
 Instruction
 
-When Does It Execute?
+Description
 
-Purpose
+01
+
+FROM
+
+Selects the Node.js base image
+
+02
+
+WORKDIR
+
+Sets the application working directory
+
+03
+
+COPY
+
+Copies application files into the image
+
+04
+
+RUN
+
+Installs production dependencies
+
+05
+
+CMD
+
+Defines the default application startup command
+
+06
+
+EXPOSE
+
+Documents the application's listening port
+
+📚 Important Docker Concepts to Remember
+
+Instruction
+
+Execution Stage
+
+Main Purpose
 
 FROM
 
@@ -281,52 +332,59 @@ Defines Default Startup Command
 
 EXPOSE
 
-Image Build (Metadata)
+Image Metadata
 
 Documents Container Port
 
-Build and Run the Docker Image
+🧪 Hands-on Practice – Build and Run Docker Image
 
-Step 1 – Build the Image
+Now let's build our Docker image and run it as a container.
+
+Step 1 – Build the Docker Image
 
 docker build -t my-node-app .
+
+Explanation:
+
+docker build builds a Docker image.
+
+-t assigns a name or tag to the image.
+
+my-node-app is the image name.
+
+. specifies the current directory as the build context.
 
 Step 2 – Run the Container
 
 docker run -d -p 3000:3000 --name node-container my-node-app
 
+Explanation:
+
+-d runs the container in detached mode (background).
+
+-p 3000:3000 maps host port 3000 to container port 3000.
+
+--name assigns a name to the container.
+
+my-node-app specifies the image to use.
+
 Step 3 – Check Running Containers
 
 docker ps
+
+Displays currently running containers.
 
 Step 4 – View Container Logs
 
 docker logs node-container
 
+Displays the application logs generated by the container.
+
 Step 5 – Stop the Container
 
 docker stop node-container
 
-Key Takeaways
-
-Dockerfile contains instructions to build a Docker image.
-
-FROM defines the base environment.
-
-WORKDIR defines where application operations take place.
-
-COPY transfers application files into the image.
-
-RUN executes commands during image construction.
-
-CMD defines the default process when the container starts.
-
-EXPOSE documents the port used by the application.
-
-Docker images are used to create and run containers.
-
-Build → Ship → Run 🐳 
-
+Stops the running container.
 > Note: The video uses `node:18-alpine` and `yarn install --production`. Node 18 reached end of life in April 2025 and the sample repo has since moved from yarn to npm, so the Dockerfile above uses a supported Node LTS image and `npm`. The rest of the steps are the same as in the video.
 
 - Build the docker image using the application code and Dockerfile
