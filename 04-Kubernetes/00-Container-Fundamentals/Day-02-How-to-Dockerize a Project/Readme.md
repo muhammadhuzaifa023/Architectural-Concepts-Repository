@@ -7,6 +7,7 @@
   ![Docker Image](Images/Docker%20Image1.png)
   <br/>
   ![Docker Image](Images/Docker%20Image2.png)
+  
 - Kubernetes playground: https://killercoda.com/playgrounds/scenario/kubernetes
 
 ## Download Docker desktop client
