@@ -28,6 +28,9 @@ git clone https://github.com/docker/getting-started-app.git
 <br>
 
 ![Docker Image](Images/Docker%20Image5.png)
+<br>
+
+![Docker Image](Images/Docker%20Image6.png)
 
 - cd into the directory
 ```
