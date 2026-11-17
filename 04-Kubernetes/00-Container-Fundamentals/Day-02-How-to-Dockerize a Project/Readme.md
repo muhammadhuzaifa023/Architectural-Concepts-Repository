@@ -5,6 +5,7 @@
 - Docker playground: https://labs.play-with-docker.com/
   ## Dockerizing a Project – Visual Reference using Docker Sandbox
   ![Docker Image](Images/Docker%20Image1.png)
+  <br/>
   ![Docker Image](Images/Docker%20Image2.png)
 - Kubernetes playground: https://killercoda.com/playgrounds/scenario/kubernetes
 
