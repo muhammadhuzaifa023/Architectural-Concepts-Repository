@@ -325,7 +325,7 @@ EXPOSE documents the port used by the application.
 
 Docker images are used to create and run containers.
 
-Build → Ship → Run 🐳
+Build → Ship → Run 🐳 
 
 > Note: The video uses `node:18-alpine` and `yarn install --production`. Node 18 reached end of life in April 2025 and the sample repo has since moved from yarn to npm, so the Dockerfile above uses a supported Node LTS image and `npm`. The rest of the steps are the same as in the video.
 
