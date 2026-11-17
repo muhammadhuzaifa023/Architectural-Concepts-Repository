@@ -40,6 +40,9 @@ cd getting-started-app/
 ```
 touch Dockerfile
 ```
+<br>
+
+![Docker Image](Images/Docker%20Image7.png)
 - Using the text editor of your choice, paste the below content (each instruction is explained in the video)
 ```dockerfile
 FROM node:22-alpine
