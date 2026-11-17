@@ -1,5 +1,4 @@
-#How To Dockerize a Project
-
+## How To Dockerize a Project
 
 ## If you would like to use a Docker or Kubernetes sandbox instead of a local setup, you can use the below:
 - Docker playground: https://labs.play-with-docker.com/
