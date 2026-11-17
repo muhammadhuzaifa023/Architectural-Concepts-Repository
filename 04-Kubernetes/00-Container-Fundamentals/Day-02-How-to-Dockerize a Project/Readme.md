@@ -7,7 +7,8 @@
   ![Docker Image](Images/Docker%20Image1.png)
   <br/>
   ![Docker Image](Images/Docker%20Image2.png)
-  
+  - This is the Docker Repository where we kept all Docker Images.These Images will pull by the Dev,Test and Prod Environment
+  ![Docker Image](Images/Docker%20Image3.png)
 - Kubernetes playground: https://killercoda.com/playgrounds/scenario/kubernetes
 
 ## Download Docker desktop client
